@@ -20,8 +20,8 @@ class CreateTransactionsTable extends Migration
             $table->decimal('amount');
             $table->decimal('sender_balance');
             $table->decimal('receiver_balance');
-            $table->boolean('canceled')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('sender_id')
                 ->references('id')

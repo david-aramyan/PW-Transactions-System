@@ -28,7 +28,7 @@ class LoginController extends Controller
     public function redirectTo()
     {
         if(auth()->user()->role->name == 'Admin') {
-            return '/history';
+            return '/admin/users';
         }else{
             return '/history';
         }

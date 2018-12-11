@@ -3,16 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name'
+        'sender_id',
+        'receiver_id',
+        'amount',
+        'sender_balance',
+        'receiver_balance',
+        'canceled'
     ];
 
     public function sender()

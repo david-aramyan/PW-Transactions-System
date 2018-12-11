@@ -4,7 +4,7 @@ body,
     height: 100%;
 }
 header{
-    height: 25%;
+    height: 20%;
 }
 
 table.dataTable thead>tr>td.sorting,
@@ -71,4 +71,8 @@ table.dataTable thead .sorting_desc:after {
 table.dataTable thead .sorting_asc_disabled:before,
 table.dataTable thead .sorting_desc_disabled:after {
     opacity: 0
+}
+
+.is-invalid .select2-container .selection .select2-selection {
+    border-color: rgb(185, 74, 72) !important;
 }

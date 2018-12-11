@@ -23,9 +23,22 @@ class CreateTransactionRequest extends FormRequest
      */
     public function rules()
     {
+        $balance = auth()->user()->balance;
         return [
             'receiver_id'   => 'required|exists:users,id',
-            'amount'        => 'required|numeric'
+            'amount'        => 'required|numeric|max:'.$balance
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'receiver_id' => 'receiver',
         ];
     }
 }

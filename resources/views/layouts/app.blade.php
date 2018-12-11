@@ -58,12 +58,12 @@
                 <!-- Links -->
                 <ul class="navbar-nav ml-auto">
                     @guest
-                    <li class="nav-item @if(Request::is('login')) active @endif">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    <li class="nav-item @if(Request::is('register')) active @endif">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
+                        <li class="nav-item @if(Request::is('login')) active @endif">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <li class="nav-item @if(Request::is('register')) active @endif">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
                     @else
                         <li class="nav-item">
                             <span class="nav-link">{{ Auth::user()->balance }} PW</span>
@@ -72,8 +72,12 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="true">{{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item waves-effect waves-light" href="{{ route('newTransaction') }}">New Transaction</a>
-                                <a class="dropdown-item waves-effect waves-light" href="{{ route('history') }}">Transactions History</a>
+                                @if(Auth::user()->role->name == "Admin")
+                                    <a class="dropdown-item waves-effect waves-light" href="{{ route('admin.users') }}">Users</a>
+                                    <a class="dropdown-item waves-effect waves-light" href="{{ route('admin.transactions') }}">Transactions</a>
+                                @endif
+                                    <a class="dropdown-item waves-effect waves-light" href="{{ route('newTransaction') }}">New Transaction</a>
+                                    <a class="dropdown-item waves-effect waves-light" href="{{ route('history') }}">My Transactions History</a>
                                 <a class="dropdown-item waves-effect waves-light" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -84,7 +88,7 @@
                                 </form>
                             </div>
                         </li>
-                        @endguest
+                    @endguest
                 </ul>
                 <!-- Links -->
 
@@ -100,6 +104,17 @@
 
 <!--Main layout-->
 <main>
+
+    @if(session('message'))
+        <div class="container">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('message') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        </div>
+    @endif
     @yield('content')
 </main>
 <!--Main layout-->
@@ -109,6 +124,6 @@
 
 </footer>
 <!--Footer-->
-    @yield('scripts')
+@yield('scripts')
 </body>
 </html>

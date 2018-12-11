@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->decimal('balance')->default(500);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

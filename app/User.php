@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use SoftDeletes,Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -34,11 +35,11 @@ class User extends Authenticatable
     }
 
     public function sentTransactions() {
-        return $this->hasMany(Transaction::class, 'sender_id');
+        return $this->hasMany(Transaction::class, 'sender_id')->withTrashed();
     }
 
     public function receivedTransactions() {
-        return $this->hasMany(Transaction::class, 'receiver_id');
+        return $this->hasMany(Transaction::class, 'receiver_id')->withTrashed();
     }
 
     public function getTransactionsAttribute() {

@@ -24,16 +24,16 @@
                 <tbody>
                 @foreach($transactions as $transaction)
                     @if($transaction->sender->id == auth()->user()->id)
-                        <tr>
+                        <tr class="{{$transaction->trashed() ? "table-warning" : ""}}">
                             <td>{{ $transaction->id }}</td>
                             <td>{{ $transaction->created_at }}</td>
                             <td>{{ $transaction->receiver->name }}</td>
                             <td class="table-danger">-{{ $transaction->amount }} PW</td>
                             <td>{{ $transaction->sender_balance }} PW</td>
-                            <td><button class="btn btn-sm btn-primary"><i class="fa fa-copy mr-1"></i> Duplicate</button></td>
+                            <td><a href="{{route('duplicate', $transaction->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-copy mr-1"></i> Duplicate</a></td>
                         </tr>
                     @else
-                        <tr>
+                        <tr class="{{$transaction->trashed() ? "table-warning" : ""}}">
                             <td>{{ $transaction->id }}</td>
                             <td>{{ $transaction->created_at }}</td>
                             <td>{{ $transaction->sender->name }}</td>
@@ -67,14 +67,15 @@
 
 @section('scripts')
     <script>
-      $(document).ready(function () {
-        $('#dtBasicExample').DataTable({
-          "order": [],
-          "columnDefs": [
-            { "orderable": false, "targets": [0, 4, 5] }
-          ]
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable({
+                "order": [],
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, 4, 5] },
+                    { "searchable": false, "targets": 5 }
+                ]
+            });
+            $('.dataTables_length').addClass('bs-select');
         });
-        $('.dataTables_length').addClass('bs-select');
-      });
     </script>
 @endsection

@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             if($request->user()->role->name == 'Admin') {
-                return redirect('/history');
+                return redirect('/admin/users');
             }else{
                 return redirect('/history');
             }
