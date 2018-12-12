@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends Model
 {
     use SoftDeletes;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -18,8 +19,7 @@ class Transaction extends Model
         'receiver_id',
         'amount',
         'sender_balance',
-        'receiver_balance',
-        'canceled'
+        'receiver_balance'
     ];
 
     public function sender()
